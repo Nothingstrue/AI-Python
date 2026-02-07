@@ -10,5 +10,3 @@ while exitcheck:
         >> 3. Decidere la vacanza
         >> 4. Controllare le opzioni disponibili
         >> 5. Uscire dal programma"""))
-    if selection == 1 :
-        
