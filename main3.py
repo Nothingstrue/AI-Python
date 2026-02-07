@@ -40,22 +40,39 @@ def Reload_Dynamic_List():
         dynamic_list.pack(fill="x")
         user_label = tk.Label(dynamic_list, text=f"Name:{users[i]}   Budget:{money[i]}", bg="orange", font=("Arial", 12), anchor="w")
         user_label.pack(side=tk.LEFT, padx=20) 
-        delete_button = tk.Button(dynamic_list, text="Delete", command=lambda x=i : Delete_User(x))
+        delete_button = tk.Button(dynamic_list, text="Delete", command=lambda temp=i : Delete_User(temp))
         delete_button.pack(side=tk.RIGHT, padx=10)
-        modify_money_button = tk.Button(dynamic_list, text="Modify Money", command=lambda x=i : Modify_Money(x))
-        modify_username_button = tk.Button(dynamic_list, text="Modify User", command=lambda x=i : Modify_Username(x))
-        modify_username_button.pack(side=tk.RIGHT)
+        modify_money_button = tk.Button(dynamic_list, text="Modify Money", command=lambda temp=i : Modify_Money(temp))
+        modify_money_button.pack(side=tk.RIGHT)
+        modify_username_button = tk.Button(dynamic_list, text="Modify User", command=lambda temp=i : Modify_Username(temp))
+        modify_username_button.pack(side=tk.RIGHT, padx=10)
     
     tk.Label(modify_user, text=f"Total Budget:\n{sum(money)}", bg="orange", font=("Arial", 12)).pack(padx=10)
     
     tk.Button(modify_user, text="Back Home", command=Back_Home).pack(pady=10)
 
 def Modify_Username(x):
-    users[x] = simpledialog.askstring("Modify", "Modify the name", parent=root)
+    temp = None
+    i = 0
+    while not temp:
+        if i>0:
+            messagebox.showwarning("Error", "Please fill the box")
+        temp = simpledialog.askstring("Modify", "Modify the name", parent=root)
+        i = i + 1
+    users[x] = temp
     Reload_Dynamic_List()
     
 def Modify_Money(x):
-    money[x] = simpledialog.askstring("Modify", "Modify the budget", parent=root)
+    temp = "hell"
+    i = 0
+    while not temp or not temp.isdigit():
+        if i>0 and not temp:
+            messagebox.showwarning("Error", "Please fill the box")
+        elif i>0 and not temp.isdigit():
+            messagebox.showerror("Error", "Please do not insert letters in the budget box")
+        temp = simpledialog.askstring("Modify", "Modify the budget", parent=root)
+        i = i+1
+    money[x] = int(temp)
     Reload_Dynamic_List()
 
 def Delete_User(x):
