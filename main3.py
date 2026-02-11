@@ -26,8 +26,6 @@ def New_User_Page():
     home.pack_forget()
     new_user.pack(fill="both", expand=True)
 
-"p.168-169 | 2 domande sul focus sull'enlightment | Domanda su 172 e 173"
-
 def Back_Home():
     new_user.pack_forget()
     modify_user.pack_forget()
