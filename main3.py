@@ -1,6 +1,6 @@
 import tkinter as tk
-from tkinter import messagebox
-from tkinter import simpledialog
+from tkinter import messagebox as bx
+from tkinter import simpledialog as sd
 users = []
 money = []
 vacation = ["Cheap", "Standard", "Premium", "VIP"]
@@ -10,14 +10,14 @@ def Submit_Button():
     name = user_box.get()
     money1 = money_box.get()
     if not name or not money1:
-        messagebox.showwarning("Error", "Please fill in both fields.")
+        bx.showwarning("Error", "Please fill in both fields.")
     elif money1.isdigit():
         users.append(name)
         money.append(int(money1))
         user_box.delete(0, tk.END)
         money_box.delete(0, tk.END)
     else:
-        messagebox.showerror("Error", "Please do not insert letters in the budget box")
+        bx.showerror("Error", "Please do not insert letters in the budget box")
 
 def Exit_Action():
     root.destroy()
@@ -61,8 +61,8 @@ def Modify_Username(x):
     i = 0
     while not temp:
         if i>0:
-            messagebox.showwarning("Error", "Please fill the box")
-        temp = simpledialog.askstring("Modify", "Modify the name", parent=root)
+            bx.showwarning("Error", "Please fill the box")
+        temp = bx.askstring("Modify", "Modify the name", parent=root)
         i = i + 1
     users[x] = temp
     Reload_Dynamic_List()
@@ -72,10 +72,10 @@ def Modify_Money(x):
     i = 0
     while not temp or not temp.isdigit():
         if i>0 and not temp:
-            messagebox.showwarning("Error", "Please fill the box")
+            bx.showwarning("Error", "Please fill the box")
         elif i>0 and not temp.isdigit():
-            messagebox.showerror("Error", "Please do not insert letters in the budget box")
-        temp = simpledialog.askstring("Modify", "Modify the budget", parent=root)
+            bx.showerror("Error", "Please do not insert letters in the budget box")
+        temp = sd.askstring("Modify", "Modify the budget", parent=root)
         i = i+1
     money[x] = int(temp)
     Reload_Dynamic_List()
@@ -96,13 +96,13 @@ def Finish_Page():
     
 def Select_Vacation(x):
     if sum(money) >= cost[x]:
-        temp = messagebox.askyesno("Selection", f"Are you sure you want to select the {vacation[x]} package?", parent=root)
+        temp = bx.askyesno("Selection", f"Are you sure you want to select the {vacation[x]} package?", parent=root)
         if temp:
-            messagebox.showinfo("Confirmation", f"Your vacation has been successfuly selected\nSelected package: {vacation[x]} Cost: {cost[x]}", parent=root)
+            bx.showinfo("Confirmation", f"Your vacation has been successfuly selected\nSelected package: {vacation[x]} Cost: {cost[x]}", parent=root)
             travel_selection.pack_forget()
             goodbye.pack(fill="both", expand=True)
     else:
-        messagebox.showwarning("Cost", f"You don't have enough budget for this package\nCurrent budget: {sum(money)}\nCost of the package: {cost[x]}", parent=root)
+        bx.showwarning("Cost", f"You don't have enough budget for this package\nCurrent budget: {sum(money)}\nCost of the package: {cost[x]}", parent=root)
 
 root = tk.Tk()
 root.title("Try")
