@@ -1,8 +1,8 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import simpledialog
-users = ["Gabriele"]
-money = [12]
+users = []
+money = []
 vacation = ["Cheap", "Standard", "Premium", "VIP"]
 cost = [300, 500, 2000, 2000000]
 
@@ -25,6 +25,8 @@ def Exit_Action():
 def New_User_Page():
     home.pack_forget()
     new_user.pack(fill="both", expand=True)
+
+"p.168-169 | 2 domande sul focus sull'enlightment | Domanda su 172 e 173"
 
 def Back_Home():
     new_user.pack_forget()
@@ -99,12 +101,14 @@ def Select_Vacation(x):
         temp = messagebox.askyesno("Selection", f"Are you sure you want to select the {vacation[x]} package?", parent=root)
         if temp:
             messagebox.showinfo("Confirmation", f"Your vacation has been successfuly selected\nSelected package: {vacation[x]} Cost: {cost[x]}", parent=root)
+            travel_selection.pack_forget()
+            goodbye.pack(fill="both", expand=True)
     else:
         messagebox.showwarning("Cost", f"You don't have enough budget for this package\nCurrent budget: {sum(money)}\nCost of the package: {cost[x]}", parent=root)
 
 root = tk.Tk()
 root.title("Try")
-root.geometry("600x400")
+root.geometry("1000x600")
 
 home = tk.Frame(root, bg="lightblue")
 tk.Label(home, text="Resort 'La sfera'\nWelcome", bg="lightblue", font=("Arial", 16)).pack(pady=20)
@@ -126,10 +130,14 @@ tk.Button(new_user, text="Back to Main Page", command=Back_Home).pack()
 modify_user = tk.Frame(root, bg="orange")
 
 travel_selection = tk.Frame(root, bg="#EE3F3F")
+tk.Label(travel_selection, text="Please choose your package!", font=("Arial", 30)).pack(pady=20)
 for i in range(len(vacation)):
     delete_button = tk.Button(travel_selection, text=vacation[i], command=lambda temp=i : Select_Vacation(temp))
     delete_button.pack(side=tk.LEFT, padx=10, expand=True)
 tk.Button(travel_selection, text="Return Home", command=Back_Home).pack(pady=20, side=tk.BOTTOM, anchor="center")
+
+goodbye = tk.Frame(root, bg="#a361a5")
+tk.Label(goodbye, text="Thank you for choosing us!", bg="#a361a5", font=("Arial", 50)).pack(pady=50)
 
 home.pack(fill="both", expand=True)
 root.mainloop()
