@@ -138,4 +138,5 @@ goodbye = tk.Frame(root, bg="#a361a5")
 tk.Label(goodbye, text="Thank you for choosing us!", bg="#a361a5", font=("Arial", 50)).pack(pady=50)
 
 home.pack(fill="both", expand=True)
+
 root.mainloop()
