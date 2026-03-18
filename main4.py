@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
 
+x = True
+
 # Dataset
 ore_studio = np.array([1, 2, 3, 4, 5, 6, 7, 8]).reshape(-1, 1)
 voti = np.array([4, 5, 5.5, 6, 6.5, 7.5, 8, 9])
@@ -21,6 +23,7 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 
 def Predict(hour):
+    global x
     # Predizione su nuovi dati
     nuove_ore = np.array([int(hour)]).reshape(-1, 1)
     predizioni_nuove = model.predict(nuove_ore)
@@ -44,6 +47,13 @@ def Predict(hour):
     plt.scatter(nuove_ore, risultato, color='red', label='Nuovi dati')
     plt.plot(ore_plot, voti_predetti, color='black', label='Retta regressione')
     
+    if x:
+        plt.xlabel("Ore di studio")
+        plt.ylabel("Voto")
+        plt.title("Regressione Lineare con nuovi dati")
+        plt.legend()
+        x = False
+    
     canvas.draw()
     
     mb.showinfo("Result", f"Your grade will be {risultato}")
@@ -55,7 +65,7 @@ def Action():
     hours = entry.get()
     if not hours:
         mb.showwarning("Error", "Please fill the field")
-    elif hours.isdigit() or hours.isnumeric():
+    elif hours.isdigit():
         entry.delete(0, tk.END)
         entry.insert(0, "Insert hour")
         Predict(hours)
